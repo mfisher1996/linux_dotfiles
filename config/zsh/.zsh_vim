@@ -1,0 +1,106 @@
+# ==============================================================================
+# ZSH VI MODE CONFIGURATION (~/.zsh_vim)
+# ==============================================================================
+
+## 1. Enable Vi Keybindings
+#bindkey -v
+#
+## 2. Key Response & Delays
+#export KEYTIMEOUT=1 # Reduce ESC key switch delay to 10ms
+#
+## 3. Dynamic Mode Handler (Cursor Shape + Tmux Status)
+#function _update_vi_mode {
+#  local mode="${KEYMAP:-main}"
+#
+#  if [[ -n "$TMUX" ]]; then
+#    case "$mode" in
+#      vicmd)
+#        # Send wrapped DCS escape directly to Ghostty for Steady Block
+#        printf '\033Ptmux;\033\033[2q\033\\'
+#        tmux set-option -q @vi_mode "#[fg=red,bold][NORMAL]#[default]"
+#        ;;
+#      main|viins)
+#        # Send wrapped DCS escape directly to Ghostty for Blinking Bar
+#        printf '\033Ptmux;\033\033[5q\033\\'
+#        tmux set-option -q @vi_mode "#[fg=green,bold][INSERT]#[default]"
+#        ;;
+#    esac
+#    tmux refresh-client -S
+#  else
+#    # Outside Tmux (Direct Ghostty)
+#    case "$mode" in
+#      vicmd)      printf '\033[2q' ;;
+#      main|viins) printf '\033[5q' ;;
+#    esac
+#  fi
+#}
+#
+## Bind single handler to ZLE keymap changes and line initialization
+#zle -N zle-keymap-select _update_vi_mode
+#zle -N zle-line-init _update_vi_mode
+#
+## 4. In-Line Convenience Bindings
+#bindkey -M viins 'jk' vi-cmd-mode                     # Exit insert mode fast
+#
+## Edit current command in Neovim ('v' in Normal Mode)
+#autoload -Uz edit-command-line
+#zle -N edit-command-line
+#bindkey -M vicmd 'v' edit-command-line
+#
+## 5. History & Search Overrides
+## fzf Ctrl+R History Search (Insert & Normal Modes)
+#if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+#  source /usr/share/doc/fzf/examples/key-bindings.zsh
+#  source /usr/share/doc/fzf/examples/completion.zsh
+#  bindkey -M viins '^R' fzf-history-widget
+#  bindkey -M vicmd '^R' fzf-history-widget
+#fi
+#
+## Substring search on 'k' and 'j' in Normal Mode (if plugin loaded)
+#if (( $+widgets[history-substring-search-up] )); then
+#  bindkey -M vicmd 'k' history-substring-search-up
+#  bindkey -M vicmd 'j' history-substring-search-down
+#fi
+#
+# ==============================================================================
+# ZSH VI MODE PLUGIN CONFIGURATION (~/.zsh_vim)
+# ==============================================================================
+
+# Configure cursor style handling
+ZVM_CURSOR_STYLE_ENABLED=true
+ZVM_KEYTIMEOUT=0.01
+
+# Custom initialisation hook for keybindings and tmux integration
+function zvm_after_init() {
+  # 1. Custom 'jk' escape sequence for insert mode
+  zvm_bindkey viins 'jk' zvm_exit_insert_mode
+
+  # 2. Re-bind Ctrl+R for fzf in both modes
+  if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+    zvm_bindkey viins '^R' fzf-history-widget
+    zvm_bindkey vicmd '^R' fzf-history-widget
+  fi
+
+  # 3. Substring search on 'k' and 'j' in normal mode
+  if (( $+widgets[history-substring-search-up] )); then
+    zvm_bindkey vicmd 'k' history-substring-search-up
+    zvm_bindkey vicmd 'j' history-substring-search-down
+  fi
+}
+
+# Hook mode changes to update the Tmux status bar
+function zvm_after_select_vi_mode() {
+  if [[ -n "$TMUX" ]]; then
+    case $ZVM_MODE in
+      $ZVM_MODE_NORMAL)
+        tmux set-option -q @vi_mode "#[fg=red,bold][NORMAL]#[default]"
+        ;;
+      $ZVM_MODE_INSERT)
+        tmux set-option -q @vi_mode "#[fg=green,bold][INSERT]#[default]"
+        ;;
+    esac
+    tmux refresh-client -S
+  fi
+}

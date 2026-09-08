@@ -72,9 +72,7 @@ ZSH_THEME="afowler" # set by `omz`
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    #zsh-autocomplete
     git
-    tmux
     autoupdate
     zsh-autosuggestions
     zsh-vi-mode

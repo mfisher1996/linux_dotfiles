@@ -1,12 +1,13 @@
-{ config, pkgs, ... }
-
+{ config, pkgs, ... }:
 { 
-    programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-    };
+	home.sessionVariables = {
+		EDITOR = "nvim";
+		VISUAL = "nvim";
+	};
+
 
     home.packages = with pkgs; [
+    	neovim
         gcc
         gnumake
         cmake
@@ -14,11 +15,10 @@
         curl
         gnutar
         cargo
-
         ripgrep
         fd
     ];
 
 
-    home.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.hoeDirecotry}/dotfiles/config/nvim";
+    xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
 }

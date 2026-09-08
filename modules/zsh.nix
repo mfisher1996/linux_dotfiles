@@ -1,17 +1,17 @@
-{ config, pkgs, ... }
+# ~/dotfiles/modules/zsh.nix
+{ config, pkgs, ... }:
 
-{ 
-    programs.zsh = {
-        enable = true;
-    };
+{
+  home.packages = with pkgs; [
+    zsh
+    zsh-vi-mode
+    fzf
+    ripgrep
+    fd
+  ];
 
-    home.file.".zshrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.hoeDirecotry}/dotfiles/config/zsh/.zshrc";
-    home.file.".zsh_vim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.hoeDirecotry}/dotfiles/config/zsh/.zsh_vim";
-
-    home.packages = with pkgs; [
-        zsh-vi-mode
-        fzf
-        ripgrep
-        fd
-    ];
+  home.file.".zshrc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/zsh/.zshrc";
+  home.file.".zsh_vim".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/zsh/.zsh_vim";
 }

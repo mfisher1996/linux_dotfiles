@@ -75,10 +75,16 @@ plugins=(
     git
     autoupdate
     zsh-autosuggestions
-    zsh-vi-mode
-    zsh-history-substring-search
     fast-syntax-highlighting
 )
+
+if [ -f "$HOME/.nix-profile/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh" ]; then
+  source "$HOME/.nix-profile/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+fi
+
+if [ -f "$HOME/.nix-profile/share/zsh-history-substring-search/zsh-history-substring-search.zsh" ]; then
+  source "$HOME/.nix-profile/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
+fi
 
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
@@ -148,8 +154,7 @@ export LANG=en_US.UTF-8
 export UPDATE_ZSH_DAYS=10
 export REDDIX_FORCE_KITTY=1
 
-. "$HOME/.cargo/env"
-#nvm use stable
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"table
 
 # Created by `pipx` on 2026-05-01 15:56:34
 export PATH="$PATH:/home/masonf/.local/bin"

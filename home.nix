@@ -4,6 +4,10 @@
 
     programs.home-manager.enable = true;
 
+    home.packages = with pkgs; [
+        devenv
+    ];
+
     imports = [
         ./modules/zsh.nix
         ./modules/tmux.nix

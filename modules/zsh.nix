@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     zsh
     zsh-vi-mode
+    zsh-history-substring-search
     fzf
     ripgrep
     fd

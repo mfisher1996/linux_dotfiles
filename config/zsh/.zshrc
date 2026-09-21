@@ -154,7 +154,7 @@ export LANG=en_US.UTF-8
 export UPDATE_ZSH_DAYS=10
 export REDDIX_FORCE_KITTY=1
 
-[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"table
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # Created by `pipx` on 2026-05-01 15:56:34
 export PATH="$PATH:/home/masonf/.local/bin"

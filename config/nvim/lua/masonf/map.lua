@@ -2,6 +2,10 @@ local opts = { noremap = true, silent = true }
 
 local keymap = vim.api.nvim_set_keymap
 
+local function ikeymap(key, cmd, pts)
+    keymap("i", key, cmd, pts)
+end
+
 local function nokeymap(key, cmd, pts)
     keymap("n", key, cmd, pts)
 end
@@ -15,6 +19,7 @@ local function vxkeymap(key, cmd, pts)
 end
 
 keymap("", "<Space>", "<Nop>", opts)
+ikeymap('jk', '<Esc>', opts)
 
 nokeymap("<A-h>", "<C-w>h", opts)
 nokeymap("<A-j>", "<C-w>j", opts)

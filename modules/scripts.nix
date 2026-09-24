@@ -5,4 +5,5 @@
         source = "../scripts/new_project";
         executable =true;
     };
+    home.sessionPath = [ "${config.home.homeDirectory}/.local/scripts" ];
 }

@@ -13,5 +13,6 @@
         ./modules/tmux.nix
         ./modules/nvim.nix
         ./modules/ghostty.nix
+        ./modules/scripts.nix
     ];
 }

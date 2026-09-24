@@ -1,0 +1,7 @@
+#!/bin/bash
+
+TEMPLATE_DIR="/home/masonf/.Templates/"
+cp "${TEMPLATE_DIR}rust_devenv.nix" ./devenv.nix
+cp "${TEMPLATE_DIR}rust_devenv.yaml" ./devenv.yaml
+cargo init $1
+git branch -M main

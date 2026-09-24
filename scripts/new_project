@@ -1,7 +1,47 @@
 #!/bin/bash
 
 TEMPLATE_DIR="/home/masonf/.Templates/"
-cp "${TEMPLATE_DIR}rust_devenv.nix" ./devenv.nix
-cp "${TEMPLATE_DIR}rust_devenv.yaml" ./devenv.yaml
-cargo init $1
-git branch -M main
+# Get the name of the script itself (e.g., "new_project")
+SCRIPT_NAME="${!#}"
+
+# Parse arguments
+LANG=$1
+TYPE=$2
+# Use the 3rd argument as project name, default to the script name
+PROJECT_NAME=${3:-$SCRIPT_NAME}
+
+case "$LANG" in
+    rust)
+        # Standard rust setup
+        cp "${TEMPLATE_DIR}rust_devenv.nix" ./devenv.nix
+        cp "${TEMPLATE_DIR}rust_devenv.yaml" ./devenv.yaml
+        
+        # Initialize cargo project
+        cargo init "$PROJECT_NAME"
+        
+        # Enter the created directory to perform specific type overrides
+        # (cargo init $NAME creates a directory with that name)
+        cd "$PROJECT_NAME" || exit
+
+        case "$TYPE" in
+            api)
+                cp "${TEMPLATE_DIR}axum.toml" ./Cargo.toml
+                ;;
+            webapp)
+                cp "${TEMPLATE_DIR}leptos.toml" ./Cargo.toml
+                ;;
+            *)
+                # Default rust behavior, no extra Cargo.toml replacement
+                ;;
+        esac
+        
+        # Move back to original directory or just handle git from here
+        git branch -M main
+        ;;
+    *)
+        echo "Usage: $0 <language> <type> [project_name]"
+        echo "Example: $0 rust api my_api"
+        exit 1
+        ;;
+esac
+

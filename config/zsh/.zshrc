@@ -178,7 +178,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 
 # Added by Antigravity CLI installer
-export PATH="/home/masonf/.local/bin:$PATH"
+export PATH="/home/masonf/.local/scripts/:/home/masonf/.local/bin:$PATH"
 eval "$(devenv hook zsh)"
 
 # zsh-history-substring-search configuration

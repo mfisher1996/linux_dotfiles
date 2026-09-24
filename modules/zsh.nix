@@ -1,11 +1,11 @@
-{ config, pkgs, ... }: # Fix 1: Removed 'programs' from arguments
+{ config, pkgs, lib, ... }: # Fix 1: Removed 'programs' from arguments
 
 {
     programs.zsh = {
         enable = true;
         enableCompletion = true;
         
-        initExtraBeforeCompInit = ''
+        initContent = lib.mkOrder 550 ''
           fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)
         '';
 
@@ -13,11 +13,7 @@
         # Instead of a symlink, read the file directly into Home Manager
         initExtra = ''
           source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
-          
-          # Read your original .zshrc text straight from the dotfiles
-          ${builtins.readFile "${config.home.homeDirectory}/.dotfiles/config/zsh/.zshrc"}
-          ${builtins.readFile "${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim"}
-
+          source "${config.home.homeDirectory}/.dotfiles/config/zsh/.zshrc"
         '';
     };
 

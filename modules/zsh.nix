@@ -5,15 +5,16 @@
         enable = true;
         enableCompletion = true;
         
-        # Consolidate all script hooks into the modern initContent pattern
-        initContent = ''
-          # 1. Inject fpath early (equivalent to order 550 / BeforeCompInit)
-          ${lib.mkOrder 550 "fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)"}
+        initContent = lib.mkMerge [
+          (lib.mkOrder 550 ''
+            fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)
+          '')
 
-          # 2. Main runtime initialization sources (equivalent to initExtra)
-          source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
-          source "${config.home.homeDirectory}/.dotfiles/config/zsh/.zshrc"
-        '';
+          (lib.mkOrder 1000 ''
+            source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
+            source "${config.home.homeDirectory}/.dotfiles/config/zsh/.zshrc"
+          '')
+        ];
     };
 
     home.packages = with pkgs; [
@@ -24,3 +25,4 @@
         fd
     ];
 }
+

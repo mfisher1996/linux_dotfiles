@@ -5,6 +5,7 @@
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
+        steam-run
         devenv
         inputs.zen-browser.packages.${pkgs.system}.default
     ];

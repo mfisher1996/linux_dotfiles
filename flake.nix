@@ -13,7 +13,11 @@
   outputs = { nixpkgs, home-manager, zen-browser, ... }@inputs:
         let
         system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = 
+        import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+        };
 
         mkHomeConfig = username: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -23,6 +27,7 @@
             {
                 home.username = username;
                 home.homeDirectory = "/home/${username}";
+                nixpkgs.allowUnfree = true;
             }
         ];
     };

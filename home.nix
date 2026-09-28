@@ -9,9 +9,6 @@
         inputs.zen-browser.packages.${pkgs.system}.default
     ];
 
-  home.file.".mozilla/native-messaging-hosts/firenvim.json".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firenvim.json";
-
     imports = [
         ./modules/zsh.nix
         ./modules/tmux.nix

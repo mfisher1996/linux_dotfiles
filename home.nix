@@ -5,10 +5,16 @@
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
+        ffmpeg
         steam-run
         devenv
         inputs.zen-browser.packages.${pkgs.system}.default
     ];
+
+    home.sessionVariables = {
+        MOZ_FFMPEG_LIBRARIES = "${pkgs.ffmpeg}/lib/libavcodec.so";
+        LD_LIBRARY_PATH = "${pkgs.ffmpeg}/lib:\${LD_LIBRARY_PATH}";
+    };
 
     imports = [
         ./modules/zsh.nix

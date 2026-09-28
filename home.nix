@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
     home.stateVersion = "24.05";
 
@@ -6,7 +6,11 @@
 
     home.packages = with pkgs; [
         devenv
+        inputs.zen-browser.packages.${pkgs.system}.default
     ];
+
+  home.file.".mozilla/native-messaging-hosts/firenvim.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.mozilla/native-messaging-hosts/firenvim.json";
 
     imports = [
         ./modules/zsh.nix

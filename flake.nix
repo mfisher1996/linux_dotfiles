@@ -1,7 +1,6 @@
 {
     description = "Modular Home Manager Configuration Flake";
     inputs = {
-        # this might need to be set to something more stable later if I run into issues.
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager = {
             url = "github:nix-community/home-manager";
@@ -14,7 +13,7 @@
         let
         system = "x86_64-linux";
         pkgs = import nixpkgs {
-            inherit system;
+            localSystem = system;
             config.allowUnfree = true;
         };
 

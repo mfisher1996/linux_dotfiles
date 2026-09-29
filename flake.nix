@@ -18,16 +18,15 @@
         };
 
         mkHomeConfig = username: home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {inherit inputs; };
-        modules = [
-            ./home.nix
-            {
-                home.username = username;
-                home.homeDirectory = "/home/${username}";
-                nixpkgs.config.allowUnfree = true;
-            }
-        ];
+            inherit pkgs;
+            extraSpecialArgs = {inherit inputs; };
+            modules = [
+                ./home.nix
+                {
+                    home.username = username;
+                    home.homeDirectory = "/home/${username}";
+                }
+            ];
     };
     in {
         homeConfigurations = {

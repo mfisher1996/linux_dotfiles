@@ -3,7 +3,7 @@
 let
   zen-browser-wrapped = pkgs.symlinkJoin {
     name = "zen-browser";
-    paths = [ inputs.zen-browser.packages.${pkgs.system}.default ];
+    paths = [ inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/zen \

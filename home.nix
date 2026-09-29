@@ -20,11 +20,6 @@ in
         zen-browser-wrapped
     ];
 
-    home.sessionVariables = {
-      MOZ_FFMPEG_LIBRARIES = "${pkgs.ffmpeg-full}/lib/libavcodec.so";
-      LD_LIBRARY_PATH = "${pkgs.ffmpeg-full}/lib:${pkgs.pulseaudio}/lib:\${LD_LIBRARY_PATH}";
-    };
-
     imports = [
         ./modules/zsh.nix
         ./modules/tmux.nix

@@ -221,7 +221,7 @@ return {
                 },
                 localSettings = {
                     [".*teams\\.microsoft\\.com.*"] = {
-                        takeover = "never", -- Prevents Teams DOM mutation loop; use <C-e> manually
+                        takeover = "never", 
                         priority = 1,
                     },
                     [".*teams\\.live\\.com.*"] = {
@@ -230,13 +230,6 @@ return {
                     },
                 },
             }
-        end,
-        config = function()
-            if vim.g.started_by_firenvim then
-                -- Firenvim specific settings
-                vim.o.laststatus = 0
-                vim.o.showtabline = 0
-            end
         end,
     }
 }

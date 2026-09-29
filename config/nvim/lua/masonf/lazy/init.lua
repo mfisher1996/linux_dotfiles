@@ -112,8 +112,8 @@ return {
     },
     "hiphish/rainbow-delimiters.nvim",
     {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" }
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown", "codecompanion" }
     },
     {
         "nvim-telescope/telescope.nvim",
@@ -210,6 +210,22 @@ return {
     --    end,
     --},
     "tpope/vim-fugitive",
-    { 'glacambre/firenvim', build = ":call firenvim#install(0)" },
-
+    {
+        'glacambre/firenvim',
+        build = ":call firenvim#install(0)",
+        init = function()
+            vim.g.firenvim_config = {
+                globalSettings = {
+                    alt = "all",
+                },
+                localSettings = {
+                    [".*gemini\\.google\\.com.*"] = {
+                        takeover = "always",
+                        selector = "div[contenteditable=\"true\"], rich-textarea",
+                        priority = 1,
+                    },
+                },
+            }
+        end,
+    }
 }

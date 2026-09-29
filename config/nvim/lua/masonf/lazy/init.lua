@@ -221,13 +221,15 @@ return {
                 },
                 localSettings = {
                     [".*teams\\.microsoft\\.com.*"] = {
-                        takeover = "never", 
+                        takeover = "never",
+                        selector = ".fui-ChatComposer, form, div[data-tid=\"message-draft\"]",
                         priority = 1,
                     },
                     [".*teams\\.live\\.com.*"] = {
                         takeover = "never",
+                        selector = ".fui-ChatComposer, form, div[data-tid=\"message-draft\"]",
                         priority = 1,
-                    },
+                    }
                 },
             }
         end,

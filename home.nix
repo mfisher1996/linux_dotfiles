@@ -1,4 +1,14 @@
 { config, pkgs, inputs, ... }:
+let zen-browser-wrapped = pkgs.symlinkJoin {
+    name= "zen-browser";
+    paths = [inputs.zen-browser.packages.${pkgs.system}.default ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+        wrapProgram $out/bin/zen \
+            --prefix LD_LIBRARY_PATH : "{pkgs.ffmpeg.lib}/lib"
+    '';
+};
+in
 {
     home.stateVersion = "24.05";
 
@@ -6,15 +16,15 @@
 
     home.packages = with pkgs; [
         ffmpeg
-        steam-run
         devenv
-        inputs.zen-browser.packages.${pkgs.system}.default
+        zen-browser-wrapped
     ];
 
     home.sessionVariables = {
       MOZ_FFMPEG_LIBRARIES = "${pkgs.ffmpeg-full}/lib/libavcodec.so";
       LD_LIBRARY_PATH = "${pkgs.ffmpeg-full}/lib:${pkgs.pulseaudio}/lib:\${LD_LIBRARY_PATH}";
     };
+
     imports = [
         ./modules/zsh.nix
         ./modules/tmux.nix

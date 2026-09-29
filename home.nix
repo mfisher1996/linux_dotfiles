@@ -1,30 +1,32 @@
 { config, pkgs, inputs, ... }:
-let zen-browser-wrapped = pkgs.symlinkJoin {
-    name= "zen-browser";
-    paths = [inputs.zen-browser.packages.${pkgs.system}.default ];
+
+let
+  zen-browser-wrapped = pkgs.symlinkJoin {
+    name = "zen-browser";
+    paths = [ inputs.zen-browser.packages.${pkgs.system}.default ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
-        wrapProgram $out/bin/zen \
-            --prefix LD_LIBRARY_PATH : "{pkgs.ffmpeg.lib}/lib"
+      wrapProgram $out/bin/zen \
+        --prefix LD_LIBRARY_PATH : "${pkgs.ffmpeg.lib}/lib"
     '';
-};
+  };
 in
 {
-    home.stateVersion = "24.05";
+  home.stateVersion = "24.05";
 
-    programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-    home.packages = with pkgs; [
-        ffmpeg
-        devenv
-        zen-browser-wrapped
-    ];
+  home.packages = with pkgs; [
+    ffmpeg
+    devenv
+    zen-browser-wrapped
+  ];
 
-    imports = [
-        ./modules/zsh.nix
-        ./modules/tmux.nix
-        ./modules/nvim.nix
-        ./modules/ghostty.nix
-        ./modules/scripts.nix
-    ];
+  imports = [
+    ./modules/zsh.nix
+    ./modules/tmux.nix
+    ./modules/nvim.nix
+    ./modules/ghostty.nix
+    ./modules/scripts.nix
+  ];
 }

@@ -212,6 +212,7 @@ return {
     "tpope/vim-fugitive",
     {
         'glacambre/firenvim',
+        lazy = false,
         build = ":call firenvim#install(0)",
         init = function()
             vim.g.firenvim_config = {
@@ -219,13 +220,23 @@ return {
                     alt = "all",
                 },
                 localSettings = {
-                    [".*gemini\\.google\\.com.*"] = {
-                        takeover = "always",
-                        selector = "div[contenteditable=\"true\"], rich-textarea",
+                    [".*teams\\.microsoft\\.com.*"] = {
+                        takeover = "never", -- Prevents Teams DOM mutation loop; use <C-e> manually
+                        priority = 1,
+                    },
+                    [".*teams\\.live\\.com.*"] = {
+                        takeover = "never",
                         priority = 1,
                     },
                 },
             }
+        end,
+        config = function()
+            if vim.g.started_by_firenvim then
+                -- Firenvim specific settings
+                vim.o.laststatus = 0
+                vim.o.showtabline = 0
+            end
         end,
     }
 }

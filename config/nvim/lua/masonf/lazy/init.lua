@@ -220,18 +220,24 @@ return {
                     alt = "all",
                 },
                 localSettings = {
-                    [".*teams\\.microsoft\\.com.*"] = {
+                    [".*"] = {
                         takeover = "never",
-                        selector = ".fui-ChatComposer, form, div[data-tid=\"message-draft\"]",
-                        priority = 1,
+                        priority = 0,
                     },
-                    [".*teams\\.live\\.com.*"] = {
-                        takeover = "never",
-                        selector = ".fui-ChatComposer, form, div[data-tid=\"message-draft\"]",
-                        priority = 1,
-                    }
                 },
             }
+        end,
+        config = function()
+            if vim.g.started_by_firenvim then
+                -- Tell Firenvim to use your local Nerd Font
+                vim.o.guifont = "AnonymicePro Nerd Font Monoh:h11"
+
+                -- Clean up UI for web embedding
+                vim.o.laststatus = 0
+                vim.o.showtabline = 0
+                vim.wo.number = false
+                vim.wo.signcolumn = "no"
+            end
         end,
     }
 }

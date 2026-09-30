@@ -17,12 +17,8 @@ case "$LANG" in
         cp "${TEMPLATE_DIR}rust_devenv.yaml" ./devenv.yaml
         
         # Initialize cargo project
-        cargo init "$PROJECT_NAME"
+        cargo init .
         
-        # Enter the created directory to perform specific type overrides
-        # (cargo init $NAME creates a directory with that name)
-        cd "$PROJECT_NAME" || exit
-
         case "$TYPE" in
             api)
                 cp "${TEMPLATE_DIR}axum.toml" ./Cargo.toml

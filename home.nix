@@ -20,6 +20,7 @@ in
     ffmpeg
     devenv
     zen-browser-wrapped
+    pkgs.bruno
   ];
 
   imports = [

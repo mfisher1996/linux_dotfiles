@@ -90,7 +90,9 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 
-source $ZSH/oh-my-zsh.sh
+PROMPT='%F{green}%n%f@%F{cyan}%m%f %~ %# '
+
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
 

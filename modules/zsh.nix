@@ -19,21 +19,16 @@
         name = "fast-syntax-highlighting";
         src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
       }
-      {
-        name = "zsh-vi-mode";
-        src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
-      }
     ];
 
     initContent = lib.mkMerge [
-      # Runs before compinit
       (lib.mkOrder 550 ''
         fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)
       '')
 
-      # Appended to shell initialization
       (lib.mkOrder 1000 ''
         source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
       '')
     ];
   };

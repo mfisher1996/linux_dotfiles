@@ -25,13 +25,17 @@
       }
     ];
 
-    initExtraBeforeCompInit = ''
-      fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)
-    '';
+    initContent = lib.mkMerge [
+      # Runs before compinit
+      (lib.mkOrder 550 ''
+        fpath=(${config.home.homeDirectory}/.dotfiles/zsh_comps $fpath)
+      '')
 
-    initExtra = ''
-      source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
-    '';
+      # Appended to shell initialization
+      (lib.mkOrder 1000 ''
+        source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
+      '')
+    ];
   };
 
   home.packages = with pkgs; [

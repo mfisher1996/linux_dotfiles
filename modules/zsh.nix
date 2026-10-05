@@ -4,6 +4,24 @@
     programs.zsh = {
         enable = true;
         enableCompletion = true;
+        oh-my-zsh = {
+            enable = true;
+            plugins = [ "git"];
+            theme = "aflower";
+        };
+        autosuggestion.enable = true;
+        historySubstringSearch.enable = true;
+
+        plugins = [
+            {
+            name = "fast-syntax-highlighting";
+            src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+            }
+            {
+            name = "zsh-vi-mode";
+            src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
+            }
+        ];
         
         initContent = lib.mkMerge [
           (lib.mkOrder 550 ''
@@ -18,8 +36,6 @@
     };
 
     home.packages = with pkgs; [
-        zsh-vi-mode
-        zsh-history-substring-search
         fzf
         ripgrep
         fd

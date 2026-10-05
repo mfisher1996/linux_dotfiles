@@ -237,6 +237,10 @@ return {
                 vim.o.showtabline = 0
                 vim.wo.number = false
                 vim.wo.signcolumn = "no"
+
+                -- Enable built-in spell checker for browser text fields
+                vim.opt.spell = true
+                vim.opt.spelllang = { 'en_us' }
             end
         end,
     }

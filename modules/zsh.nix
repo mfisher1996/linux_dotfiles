@@ -7,6 +7,7 @@
         oh-my-zsh = {
             enable = true;
             plugins = [ "git" "autoupdate" "zsh-autosuggestions" "fast-syntax-highlighting" ];
+            theme = "aflower";
         };
         
         initContent = lib.mkMerge [

@@ -31,6 +31,7 @@
     in {
         homeConfigurations = {
             "masonf" = mkHomeConfig "masonf";
+            "adm_masonf" = mkHomeConfig "adm_masonf";
             "mason" = mkHomeConfig "mason";
         };
     };

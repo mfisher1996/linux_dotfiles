@@ -11,7 +11,7 @@
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
-      theme = "af-magic";
+      theme = "eastwood";
     };
 
     plugins = [

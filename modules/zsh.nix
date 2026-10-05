@@ -7,7 +7,7 @@
         oh-my-zsh = {
             enable = true;
             plugins = [ "git"];
-            theme = "aflower";
+            theme = "af-magic";
         };
         autosuggestion.enable = true;
         historySubstringSearch.enable = true;

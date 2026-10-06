@@ -24,8 +24,9 @@
       (lib.mkOrder 1000 ''
         source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-        source ${pkgs.zsh-fast-syntax-highlighting}/share/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
       '')
+
     ];
   };
 

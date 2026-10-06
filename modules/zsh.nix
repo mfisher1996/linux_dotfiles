@@ -11,15 +11,11 @@
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
-      theme = "eastwood";
+      theme = "af-magic";
     };
 
-    plugins = [
-      {
-        name = "fast-syntax-highlighting";
-        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-      }
-    ];
+    # Emptied plugins list to prevent premature sourcing before OMZ / vi-mode
+    plugins = [ ];
 
     initContent = lib.mkMerge [
       (lib.mkOrder 550 ''
@@ -29,6 +25,7 @@
       (lib.mkOrder 1000 ''
         source ${config.home.homeDirectory}/.dotfiles/config/zsh/.zsh_vim
         source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+        source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       '')
     ];
   };

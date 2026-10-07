@@ -5,15 +5,6 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-inline_custom_colors() {
-    # Examples: 242 = Mid Gray, 045 = Vibrant Turquoise, 201 = Vibrant Purple
-    FG[237]="%F{001}"  # Brightens up the divider line if it's too dark
-    FG[032]="%F{001}"  # Brightens up the path directory text 
-    FG[105]="%F{001}"  # Brightens up the prompt symbols
-}
-
-autoload -U add-zsh-hook
-add-zsh-hook precmd inline_custom_colors
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,

@@ -11,13 +11,9 @@ inline_custom_colors() {
     FG[032]="%F{001}"  # Brightens up the path directory text 
     FG[105]="%F{001}"  # Brightens up the prompt symbols
 }
+
 autoload -U add-zsh-hook
 add-zsh-hook precmd inline_custom_colors
-
-# Run the override function safely after themes are fully initialized
-autoload -U add-zsh-hook
-add-zsh-hook precmd inline_custom_colors
-
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
